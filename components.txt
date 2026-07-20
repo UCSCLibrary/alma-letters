@@ -4,5 +4,4 @@
 footer
 header
 mailReason
-senderReceiver
 style
