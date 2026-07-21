@@ -59,6 +59,10 @@ Lines starting with `#` are comments.
 
 ## Resources
 
+### Identifying a letter code
+
+To get the letter code in Alma, navigate to Configuration > General > Letters Configuration. Then find the letter and click on its title to open the edit screen. Now click on the Letter Examples button near the top of the modal window. If the list only includes "DefaultLetter.xml", then click the Add from system letters button and pick from any option you see. The name of the example in the list (other than DefaultLetter.xml) is the Alma system code for the letter.
+
 ### Ex Libris Documentation
 
 - [Letter Customization Guide](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/050Administration/050Configuring_General_Alma_Functions/070Configuring_Alma_Letters#Using_Templates_to_Update_Letter_Formatting_and_Content)
