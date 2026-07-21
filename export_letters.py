@@ -9,7 +9,7 @@ from their defaults, and can push local changes back to Alma.
 import os
 import sys
 from pathlib import Path
-
+import xml.etree.ElementTree as ET
 import requests
 from dotenv import load_dotenv
 
@@ -36,10 +36,9 @@ def get_headers(content_type="json"):
     """Return headers for API requests."""
     headers = {
         "Authorization": f"apikey {API_KEY}",
+        "Accept": f"application/{content_type}",
+        "Content-Type": f"application/{content_type}"
     }
-    if content_type == "json":
-        headers["Accept"] = "application/json"
-        headers["Content-Type"] = "application/json"
     return headers
 
 
@@ -63,22 +62,23 @@ def fetch_letter_list(letter_type="LETTER"):
     return data.get("letter", [])
 
 
-def fetch_letter_detail(letter_code):
+def fetch_letter_detail(letter_code, content_type="json"):
     """
     Fetch the full details of a specific letter, including XSL content.
 
     Args:
         letter_code: The unique code identifying the letter.
+        content_type: Request JSON or XML format
 
     Returns:
         Letter object with XSL content.
     """
     url = f"{BASE_URL}/conf/letters/{letter_code}"
 
-    response = requests.get(url, headers=get_headers())
+    response = requests.get(url, headers=get_headers(content_type))
     response.raise_for_status()
 
-    return response.json()
+    return response
 
 
 def push_letter(letter_code, xsl_content):
@@ -95,12 +95,17 @@ def push_letter(letter_code, xsl_content):
     # First fetch the current letter to get its full structure
     url = f"{BASE_URL}/conf/letters/{letter_code}"
 
-    current = fetch_letter_detail(letter_code)
+    response = fetch_letter_detail(letter_code, "xml")
+    current = ET.fromstring(response.content)
 
     # Update only the XSL content
-    current["xsl"] = xsl_content
+    element = current.find("xsl")
+    element.text = xsl_content
 
-    response = requests.put(url, headers=get_headers(), json=current)
+    # Convert XML back to string
+    xml_data = ET.tostring(current, encoding="utf-8")
+
+    response = requests.put(url, headers=get_headers("xml"), data=xml_data)
     response.raise_for_status()
 
     return True
@@ -210,7 +215,7 @@ def export_letters(letter_type, output_dir):
         name = letter.get("name", code)
 
         print(f"  Downloading: {code} ({name})")
-        detail = fetch_letter_detail(code)
+        detail = fetch_letter_detail(code, "json").json()
 
         xsl_content = detail.get("xsl")
         if xsl_content:
@@ -268,7 +273,9 @@ def push_letters(letter_type, source_dir):
             push_letter(api_code, xsl_content)
             pushed.append(api_code)
         except requests.exceptions.HTTPError as e:
-            print(f"    Error: {e}")
+            print(f"    HTTP Error: {e}")
+            if e.response is not None:
+                print(f"    Alma Error: {e.response.text}")
 
     return pushed
 
