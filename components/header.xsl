@@ -18,7 +18,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 		<td colspan="2">
 		<div id="mailHeader">
               <div id="logoContainer" class="alignLeft">
-                    <img src="cid:logo.jpg" alt="logo"/>
+                    <img src="cid:logo.jpg" alt="UC Santa Cruz University Library"/>
                </div>
 		</div>
 		</td>

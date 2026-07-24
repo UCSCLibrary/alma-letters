@@ -9,8 +9,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:include href="recordTitle.xsl" />
 
   <xsl:template match="/">
-    <html>
-      <head><!-- confirmation works -->
+    <html lang="en" dir="ltr">
+      <head>
+          <title>Courtesy Notice</title>
         <xsl:call-template name="generalStyle" />
       </head>
       <body>
