@@ -406,15 +406,14 @@ def print_usage():
     print("Usage: alma-letters [command] [options]")
     print()
     print("Commands:")
-    print("  (none)              Export letters from Alma to local files")
+    print("  pull --env ENV      Export letters from Alma to local files (ENV: sandbox or production)")
     print("  push --env ENV      Push local files to Alma (ENV: sandbox or production)")
     print("  --debug             Show all available letters and their status")
     print()
     print("Examples:")
-    print("  alma-letters                    # Export from Alma")
-    print("  alma-letters push --env sandbox # Push to sandbox")
-    print("  alma-letters push --env production # Push to production (requires confirmation)")
-    print("  alma-letters --debug            # Debug mode")
+    print("  alma-letters pull --env sandbox     # Export from sandbox")
+    print("  alma-letters push --env production  # Push to production (requires confirmation)")
+    print("  alma-letters --debug                # Debug mode")
 
 
 def main():
@@ -479,29 +478,38 @@ def main():
 
         return
 
-    # Default: export
-    API_KEY = get_api_key()
+    # Handle pull command
+    if args and args[0] == "pull":
 
-    print("Alma Letter Export")
-    print("=" * 40)
+        verify_env_arg(args)
 
-    # Export letters
-    letters = export_letters("LETTER", LETTERS_DIR)
+        API_KEY = get_api_key(env_name)
 
-    # Export components
-    components = export_letters("COMPONENT", COMPONENTS_DIR)
+        print(f"Alma Letter Export ({env_name.upper()})")
+        print("=" * 40)
 
-    # Summary
-    print("\n" + "=" * 40)
-    print("Export complete!")
-    print(f"  Letters exported: {len(letters)}")
-    print(f"  Components exported: {len(components)}")
+        # Export letters
+        letters = export_letters("LETTER", LETTERS_DIR)
 
-    if letters:
-        print(f"\nLetters saved to: {LETTERS_DIR}")
-    if components:
-        print(f"Components saved to: {COMPONENTS_DIR}")
+        # Export components
+        components = export_letters("COMPONENT", COMPONENTS_DIR)
 
+        # Summary
+        print("\n" + "=" * 40)
+        print("Export complete!")
+        print(f"  Letters exported: {len(letters)}")
+        print(f"  Components exported: {len(components)}")
+
+        if letters:
+            print(f"\nLetters saved to: {LETTERS_DIR}")
+        if components:
+            print(f"Components saved to: {COMPONENTS_DIR}")
+
+        return
+
+    # Default: show usage
+    print_usage()
+    return
 
 if __name__ == "__main__":
     main()
