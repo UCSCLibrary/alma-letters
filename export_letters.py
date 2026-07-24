@@ -388,9 +388,7 @@ def verify_env_arg(args):
     """
     env_name = None
     if "--env" in args:
-        env_idx = args.index("--env")
-        if env_idx + 1 < len(args):
-            env_name = args[env_idx + 1].lower()
+        env_name = get_arg_value("--env", args).lower()
 
     if env_name not in ("sandbox", "production"):
         print("Error: push/pull requires --env sandbox or --env production")
@@ -399,6 +397,23 @@ def verify_env_arg(args):
         sys.exit(1)
 
     return env_name
+
+
+def get_arg_value(arg, args):
+    """
+    Given an argument name, return the value that follows
+
+    Args:
+        arg: The name of the argument to find
+        args: The user arguments passed to the command
+
+    Returns:
+        The value of the argument
+    """
+    i = args.index(arg)
+        if i + 1 < len(args):
+            value = args[i + 1]
+    return value
 
 
 def print_usage():
