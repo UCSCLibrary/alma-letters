@@ -376,6 +376,31 @@ def get_api_key(env_name=None):
         return key
 
 
+def verify_env_arg(args):
+    """
+    Checks that env argument exists and is valid
+
+    Args:
+        args: the user arguments passed to the command
+
+    Returns:
+        True if successful, otherwise exits
+    """
+    env_name = None
+    if "--env" in args:
+        env_idx = args.index("--env")
+        if env_idx + 1 < len(args):
+            env_name = args[env_idx + 1].lower()
+
+    if env_name not in ("sandbox", "production"):
+        print("Error: push/pull requires --env sandbox or --env production")
+        print()
+        print_usage()
+        sys.exit(1)
+
+    return True
+
+
 def print_usage():
     """Print usage information."""
     print("Usage: alma-letters [command] [options]")
@@ -420,18 +445,8 @@ def main():
 
     # Handle push command
     if args and args[0] == "push":
-        # Parse --env argument
-        env_name = None
-        if "--env" in args:
-            env_idx = args.index("--env")
-            if env_idx + 1 < len(args):
-                env_name = args[env_idx + 1].lower()
 
-        if env_name not in ("sandbox", "production"):
-            print("Error: push requires --env sandbox or --env production")
-            print()
-            print_usage()
-            sys.exit(1)
+        verify_env_arg(args)
 
         # Confirmation for production
         if env_name == "production":
