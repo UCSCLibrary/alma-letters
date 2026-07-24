@@ -255,29 +255,35 @@ def push_letters(letter_type, source_dir):
 
     pushed = []
     for code in explicit_codes:
-        # Handle component codes (may or may not have .xsl)
-        filename = code if code.endswith(".xsl") else f"{code}.xsl"
-        file_path = source_dir / filename
-
-        if not file_path.exists():
-            print(f"  Skipping: {code} (file not found: {filename})")
-            continue
-
-        # For components, the API code includes .xsl
-        api_code = filename if letter_type == "COMPONENT" else code
-
-        print(f"  Uploading: {api_code}")
-        xsl_content = file_path.read_text(encoding="utf-8")
-
-        try:
-            push_letter(api_code, xsl_content)
-            pushed.append(api_code)
-        except requests.exceptions.HTTPError as e:
-            print(f"    HTTP Error: {e}")
-            if e.response is not None:
-                print(f"    Alma Error: {e.response.text}")
+        api_code = push_single(code, letter_type, source_dir)
+        pushed.append(api_code)
 
     return pushed
+
+
+def push_single(code, type, source_dir):
+    """Push a single letter or component"""
+    filename = code if code.endswith(".xsl") else f"{code}.xsl"
+    file_path = source_dir / filename
+
+    if not file_path.exists():
+        print(f"  Error: file not found: {file_path}")
+        return False
+
+    # For components, the API code includes .xsl
+    api_code = filename if type == "COMPONENT" else code
+
+    print(f"  Uploading: {api_code}")
+    xsl_content = file_path.read_text(encoding="utf-8")
+
+    try:
+        push_letter(api_code, xsl_content)
+    except requests.exceptions.HTTPError as e:
+        print(f"    HTTP Error: {e}")
+        if e.response is not None:
+            print(f"    Alma Error: {e.response.text}")
+
+    return api_code
 
 
 def debug_letters(letter_type="LETTER"):
@@ -411,8 +417,8 @@ def get_arg_value(arg, args):
         The value of the argument
     """
     i = args.index(arg)
-        if i + 1 < len(args):
-            value = args[i + 1]
+    if i + 1 < len(args):
+        value = args[i + 1]
     return value
 
 
@@ -421,14 +427,17 @@ def print_usage():
     print("Usage: alma-letters [command] [options]")
     print()
     print("Commands:")
-    print("  pull --env ENV      Export letters from Alma to local files (ENV: sandbox or production)")
-    print("  push --env ENV      Push local files to Alma (ENV: sandbox or production)")
-    print("  --debug             Show all available letters and their status")
+    print("  pull --env ENV                 Export letters from Alma to local files (ENV: sandbox or production)")
+    print("  push --env ENV                 Push all local files to Alma (ENV: sandbox or production)")
+    print("  push --env ENV --letter X      Push a single letter to Alma, X is any letter code")
+    print("  push --env ENV --component X   Push a single component to Alma, X is any component code")
+    print("  --debug                        Show all available letters and their status")
     print()
     print("Examples:")
-    print("  alma-letters pull --env sandbox     # Export from sandbox")
-    print("  alma-letters push --env production  # Push to production (requires confirmation)")
-    print("  alma-letters --debug                # Debug mode")
+    print("  alma-letters pull --env sandbox                                 # Export from sandbox")
+    print("  alma-letters push --env production                              # Push to production (requires confirmation)")
+    print("  alma-letters push --env production --letter FulLostLoanLetter   # Push the lost loan letter to production")
+    print("  alma-letters --debug                                            # Debug mode")
 
 
 def main():
@@ -476,13 +485,25 @@ def main():
 
         API_KEY = get_api_key(env_name)
 
+        # Handle single letter/component push
+        if "--letter" in args:
+            code = get_arg_value("--letter", args)
+            result = push_single(code, "LETTER", LETTERS_DIR)
+            if result:
+                print("  Push complete!")
+            return
+
+        if "--component" in args:
+            code = get_arg_value("--component", args)
+            result = push_single(code, "COMPONENT", COMPONENTS_DIR)
+            if result:
+                print("  Push complete!")
+            return
+
+        # Otherwise push all letters and components
         print(f"Alma Letter Push ({env_name.upper()})")
         print("=" * 40)
-
-        # Push letters
         letters = push_letters("LETTER", LETTERS_DIR)
-
-        # Push components
         components = push_letters("COMPONENT", COMPONENTS_DIR)
 
         # Summary
