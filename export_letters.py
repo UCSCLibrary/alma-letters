@@ -384,7 +384,7 @@ def verify_env_arg(args):
         args: the user arguments passed to the command
 
     Returns:
-        True if successful, otherwise exits
+        The name of the environment
     """
     env_name = None
     if "--env" in args:
@@ -398,7 +398,7 @@ def verify_env_arg(args):
         print_usage()
         sys.exit(1)
 
-    return True
+    return env_name
 
 
 def print_usage():
@@ -445,7 +445,7 @@ def main():
     # Handle push command
     if args and args[0] == "push":
 
-        verify_env_arg(args)
+        env_name = verify_env_arg(args)
 
         # Confirmation for production
         if env_name == "production":
@@ -481,7 +481,7 @@ def main():
     # Handle pull command
     if args and args[0] == "pull":
 
-        verify_env_arg(args)
+        env_name = verify_env_arg(args)
 
         API_KEY = get_api_key(env_name)
 
