@@ -9,6 +9,7 @@
  .listing tr:hover td {background-color:#eee}
  .listing th {background-color:#f5f5f5 }
  h4{line-height: 0.2em}
+ .messageBody{padding:0 20px;}
  </style>
 </xsl:template>
 
@@ -21,7 +22,7 @@ list-style: none; margin:0 0 0 1em; padding:0
 </xsl:template>
 
 <xsl:template name="mainTableStyleCss">
-width:100%; text-align:left
+width:100%; text-align:left; margin-bottom:30px;
 </xsl:template>
 
 <xsl:template name="headerLogoStyleCss">
@@ -29,7 +30,7 @@ background-color:#003c6c; width:100%; padding:20px;
 </xsl:template>
 
 <xsl:template name="headerTableStyleCss">
-width:100%; padding:0 15px; background-color:#fff; box-shadow:0 1px 5px #ccc;
+width:100%; padding:0 15px; background-color:#fff; border-bottom:1px solid #ccc; box-shadow:0 1px 5px #ccc;
 </xsl:template>
 
 <xsl:template name="footerTableStyleCss">
