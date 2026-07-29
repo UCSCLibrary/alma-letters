@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:template name="generalStyle">
  <style>
@@ -14,7 +13,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 </xsl:template>
 
 <xsl:template name="bodyStyleCss">
-font-family: 'Roboto', arial, sans-serif; color:#333; margin:0; padding:0em; font-size:80% 
+font-family: 'Roboto', arial, sans-serif; color:#333; margin:0; padding:0em;
 </xsl:template>
 
 <xsl:template name="listStyleCss">
@@ -26,16 +25,27 @@ width:100%; text-align:left
 </xsl:template>
 
 <xsl:template name="headerLogoStyleCss">
-background-color:#ffffff;  width:100%;
+background-color:#003c6c; width:100%; padding:20px;
 </xsl:template>
 
 <xsl:template name="headerTableStyleCss">
-background-color:#e9e9e9;  width:100%; height:30px; text-shadow:1px 1px 1px #fff;
+width:100%; padding:0 15px; background-color:#fff; box-shadow:0 1px 5px #ccc;
 </xsl:template>
 
 <xsl:template name="footerTableStyleCss">
-background-color:#444;  width:100%; text-shadow:1px 1px 1px #333; color:#fff; margin-top:1em;  font-weight:700; line-height:2em; font-size:150%;
+background-color:#003c6c; width:100%; color:#fff; margin-top:1em;  font-weight:700; line-height:2em; font-size:150%; text-align:center;
 </xsl:template>
 
+<xsl:template name="letterNameStyle">
+margin:10px 0;
+</xsl:template>
+
+<xsl:template name="toWhomStyle">
+padding:10px 20px; font-size:1.17em; font-weight:bold;
+</xsl:template>
+
+<xsl:template name="footerLinkStyle">
+float:left; width:50%; margin:20px 0; text-align:center;
+</xsl:template>
 
 </xsl:stylesheet>
