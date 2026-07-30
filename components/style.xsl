@@ -57,4 +57,16 @@ padding:10px 20px; font-size:1.17em; font-weight:bold;
 float:left; width:50%; margin:20px 0; text-align:center;
 </xsl:template>
 
+<xsl:template name="senderReceiverStyle">
+width:100%; padding:5px 20px; background-color:#fff; font-size:0; box-sizing:border-box;
+</xsl:template>
+
+<xsl:template name="receiverStyle">
+display: inline-block; width: 50%; max-width: 50%; font-size: 16px;
+</xsl:template>
+
+<xsl:template name="senderStyle">
+display: inline-block; width: 49%; max-width: 49%; text-align: right; font-size: 16px;
+</xsl:template>
+
 </xsl:stylesheet>
