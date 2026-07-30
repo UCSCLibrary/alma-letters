@@ -38,7 +38,7 @@ background-color:#003c6c; width:100%; color:#fff; margin-top:1em;  font-weight:7
 </xsl:template>
 
 <xsl:template name="letterNameDivStyle">
-display: inline-block; width: 75%; max-width: 75%; vertical-align: middle; font-size: 16px;
+display: inline-block; width: 75%; max-width: 75%; vertical-align: middle; font-size: 14px;
 </xsl:template>
 
 <xsl:template name="letterNameStyle">
