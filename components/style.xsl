@@ -30,15 +30,23 @@ background-color:#003c6c; width:100%; padding:20px;
 </xsl:template>
 
 <xsl:template name="headerTableStyleCss">
-width:100%; padding:0 15px; background-color:#fff; border-bottom:1px solid #ccc; box-shadow:0 1px 5px #ccc;
+width:100%; padding:5px 20px; background-color:#fff; border-bottom:1px solid #ccc; box-shadow:0 1px 5px #ccc; font-size:0; box-sizing:border-box;
 </xsl:template>
 
 <xsl:template name="footerTableStyleCss">
 background-color:#003c6c; width:100%; color:#fff; margin-top:1em;  font-weight:700; line-height:2em; font-size:150%; text-align:center;
 </xsl:template>
 
+<xsl:template name="letterNameDivStyle">
+display: inline-block; width: 75%; max-width: 75%; vertical-align: middle; font-size: 16px;
+</xsl:template>
+
 <xsl:template name="letterNameStyle">
 margin:10px 0;
+</xsl:template>
+
+<xsl:template name="currentDateStyle">
+display: inline-block; width: 24%; max-width: 24%; vertical-align: middle; text-align: right; font-size: 16px;
 </xsl:template>
 
 <xsl:template name="toWhomStyle">

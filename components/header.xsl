@@ -10,26 +10,49 @@
 	<img src="cid:logo.jpg" alt="UC Santa Cruz University Library"/>
 </div>
 
-<table cellspacing="0" cellpadding="5" border="0" role="presentation">
+<div>
 	<xsl:attribute name="style">
 		<xsl:call-template name="headerTableStyleCss" /> <!-- style.xsl -->
 	</xsl:attribute>
-	<tr>
+		<!--[if mso]>
+	    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+	    <tr>
+	    <![endif]-->
 	<xsl:for-each select="notification_data/general_data">
-		<td>
+		<!--[if mso]>
+	    <td valign="middle" align="left">
+	    <![endif]-->
+	    <div>
+			<xsl:attribute name="style">
+				<xsl:call-template name="letterNameDivStyle" />
+			</xsl:attribute>
 			<h1>
 				<xsl:attribute name="style">
 					<xsl:call-template name="letterNameStyle" />
 				</xsl:attribute>
 				<xsl:value-of select="letter_name"/>
 			</h1>
-		</td>
-		<td align="right">
+		</div>
+		<!--[if mso]>
+	    </td>
+	    <td width="30%" valign="middle" align="right">
+	    <![endif]-->
+
+		<div>
+			<xsl:attribute name="style">
+				<xsl:call-template name="currentDateStyle" />
+			</xsl:attribute>
 			<xsl:value-of select="current_date"/>
-		</td>
+		</div>
+		<!--[if mso]>
+	    </td>
+	    <![endif]-->
   	</xsl:for-each>
+	<!--[if mso]>
 	</tr>
-</table>
+	</table>
+	<![endif]-->
+</div>
 </xsl:template>
 
 </xsl:stylesheet>
