@@ -9,8 +9,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:include href="style.xsl" />
 
 <xsl:template match="/">
-	<html>
+	<html lang="en" dir="ltr">
 		<head>
+			<title><xsl:value-of select="notification_data/general_data/subject"/></title>
 		<xsl:call-template name="generalStyle" />
 		</head>
 
@@ -21,68 +22,42 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 				<xsl:call-template name="head" /> <!-- header.xsl -->
 
-				<br />
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
 
-				<table cellspacing="0" cellpadding="5" border="0">
-				<tr>
-				<td>
-					<xsl:choose> 
+<div class="messageBody">
+
+<xsl:choose> 
+
 <xsl:when test="/notification_data/notification_type = 'OverdueNotificationType1'">
-<tr>
-<td>
 	<p>@@inform_you_item_below_type1@@ @@borrowed_by_you@@ @@decalred_as_lost@@</p>
 	<p>@@charged_with_fines_fees_type1@@</p>
-</td>
-</tr>
 </xsl:when>
+
 <xsl:when test="/notification_data/notification_type = 'OverdueNotificationType2'">
-<tr>
-<td>
 	<p>@@inform_you_item_below_type2@@ @@borrowed_by_you@@ @@decalred_as_lost_type2@@</p>
 	<xsl:choose>
   <xsl:when test="notification_data/receivers/receiver/user/user_group = 'NETWORK'">
     <p>To renew your items, log in to your home campus library account.</p>
   </xsl:when>
   <xsl:otherwise>
-    <p>To renew your items, log in to your <a href="https://guides.library.ucsc.edu/myaccount">
-<value-of select="UCSC library account"/> UCSC library account</a>.</p>
+    <p>To renew your items, log in to your <a href="https://guides.library.ucsc.edu/myaccount"><value-of select="UCSC library account"/> UCSC library account</a>.</p>
   </xsl:otherwise>
-</xsl:choose>
+	</xsl:choose>
+
 	<p>@@charged_with_fines_fees_type2@@</p>
-</td>
-</tr>
 </xsl:when>
- <xsl:when test="/notification_data/notification_type = 'OverdueNotificationType3'"> 
-<tr>
-<td>
+
+<xsl:when test="/notification_data/notification_type = 'OverdueNotificationType3'"> 
 	<p>@@inform_you_item_below_type3@@ @@borrowed_by_you@@ @@decalred_as_lost_type3@@</p>
 	<p>@@charged_with_fines_fees_type3@@</p>
-</td> 
-</tr>
 </xsl:when>
 </xsl:choose>
-				</td>
-				</tr>
-				</table>
-
-				<table cellpadding="5" class="listing">
-					<xsl:attribute name="style">
-						<xsl:call-template name="mainTableStyleCss" /> <!-- style.xsl -->
-					</xsl:attribute>
 
 					<xsl:for-each select="notification_data/loans_by_library/library_loans_for_display">
-						<tr>
-							<td>
 								<table cellpadding="5" class="listing">
 									<xsl:attribute name="style">
 										<xsl:call-template name="mainTableStyleCss" />
 									</xsl:attribute>
-									<tr align="center" bgcolor="#f5f5f5">
-										<td colspan="8">
-											<h3><xsl:value-of select="organization_unit/name" /></h3>
-										</td>
-									</tr>
 									<tr>
 										<th>@@lost_item@@</th>
 										<th>@@description@@</th>
@@ -112,35 +87,23 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 										</tr>
 									</xsl:for-each>
 								</table>
-							</td>
-						</tr>
-						<hr/><br/>
 						</xsl:for-each>
+
 						<xsl:if test="notification_data/overdue_notification_fee_amount/sum !=''">
-						<tr>
-							<td>
+						<p>
 								<b>@@overdue_notification_fee@@ </b>
 								<xsl:value-of select="notification_data/overdue_notification_fee_amount/sum"/>&#160;<xsl:value-of select="notification_data/overdue_notification_fee_amount/currency"/>&#160;<xsl:value-of select="ff"/>
-							</td>
-						</tr>
+						</p>
 						</xsl:if>
-					<br />
-				<br />
-					@@additional_info_2@@
-					<br />
-					<table>
 
-							<tr><td>@@sincerely@@</td></tr>
-							<tr><td>@@department@@</td></tr>
+	<p>@@additional_info_2@@</p>
 
-					</table>
-				</table>
-				<br />
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
+
  <!-- footer.xsl -->
 				<xsl:call-template name="lastFooter" />
-                               <xsl:call-template name="contactUs" />
-                                <xsl:call-template name="myAccount" />
-
 			</body>
 	</html>
 </xsl:template>
