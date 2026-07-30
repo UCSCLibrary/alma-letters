@@ -11,7 +11,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
 	<html lang="en" dir="ltr">
 		<head>
-			<title>Fines and Fees Notification</title>
+			<title><xsl:value-of select="notification_data/general_data/subject"/></title>
 		<xsl:call-template name="generalStyle" />
 		</head>
 
