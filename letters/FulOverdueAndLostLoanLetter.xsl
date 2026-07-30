@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:include href="header.xsl" />
 <xsl:include href="mailReason.xsl" />
@@ -9,8 +8,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:include href="style.xsl" />
 
 <xsl:template match="/">
-	<html>
+	<html lang="en" dir="ltr">
 		<head>
+			<title><xsl:value-of select="notification_data/general_data/subject"/></title>
 		<xsl:call-template name="generalStyle" />
 		</head>
 
@@ -21,35 +21,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 				<xsl:call-template name="head" /> <!-- header.xsl -->
                                 <xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-				<br />
-
-
-				<table cellspacing="0" cellpadding="5" border="0">
-				<tr>
-				<td>
-					<h>@@inform_you_item_below@@ </h>
-					<h>@@decalred_as_lost@@</h>
-				</td>
-				</tr>
-				</table>
-
-				<table cellpadding="5" class="listing">
-					<xsl:attribute name="style">
-						<xsl:call-template name="mainTableStyleCss" /> <!-- style.xsl -->
-					</xsl:attribute>
+<div class="messageBody">
+	<p><span>@@inform_you_item_below@@ </span><span>@@decalred_as_lost@@</span></p>
 
 					<xsl:for-each select="notification_data/loans_by_library/library_loans_for_display">
-						<tr>
-							<td>
 								<table cellpadding="5" class="listing">
 									<xsl:attribute name="style">
 										<xsl:call-template name="mainTableStyleCss" />
 									</xsl:attribute>
-									<tr align="center" bgcolor="#f5f5f5">
-										<td colspan="8">
-											<h3><xsl:value-of select="organization_unit/name" /></h3>
-										</td>
-									</tr>
 									<tr>
 										<th>@@lost_item@@</th>
 										<th>@@description@@</th>
@@ -79,35 +58,22 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 										</tr>
 									</xsl:for-each>
 								</table>
-							</td>
-						</tr>
-						<hr/><br/>
 					</xsl:for-each>
-					<xsl:if test="notification_data/overdue_notification_fee_amount/sum !=''">
-						<tr>
-							<td>
-								<b>@@overdue_notification_fee@@</b>
-								<xsl:value-of select="notification_data/overdue_notification_fee_amount/sum"/>&#160;<xsl:value-of select="notification_data/overdue_notification_fee_amount/currency"/>&#160;<xsl:value-of select="ff"/>
-							</td>
-						</tr>
-					</xsl:if>
-					<br />
-					<br />
-					@@additional_info_1@@
-					<br />
-					@@additional_info_2@@
-					<br />
 
-					<table>
-						<tr><td>@@sincerely@@</td></tr>
-						<tr><td>@@department@@</td></tr>
-					</table>
-				</table>
-				<br />
+					<xsl:if test="notification_data/overdue_notification_fee_amount/sum !=''">
+						<p><b>@@overdue_notification_fee@@</b>
+								<xsl:value-of select="notification_data/overdue_notification_fee_amount/sum"/>&#160;<xsl:value-of select="notification_data/overdue_notification_fee_amount/currency"/>&#160;<xsl:value-of select="ff"/>
+						</p>
+					</xsl:if>
+
+					<p>@@additional_info_1@@</p>
+					<p>@@additional_info_2@@</p>
+
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
 
 				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-                                <xsl:call-template name="contactUs" />
-                                <xsl:call-template name="myAccount" />
 			</body>
 	</html>
 </xsl:template>
