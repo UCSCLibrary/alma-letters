@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:include href="header.xsl" />
 <xsl:include href="senderReceiver.xsl" />
@@ -10,8 +9,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:include href="style.xsl" />
 
 <xsl:template match="/">
-	<html>
+	<html lang="en" dir="ltr">
 		<head>
+			<title><xsl:value-of select="notification_data/general_data/subject"/></title>
 		<xsl:call-template name="generalStyle" />
 		</head>
 
@@ -25,44 +25,29 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 				<br />
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-				<div class="messageArea">
+
           <div class="messageBody">
 
-			<table cellspacing="0" cellpadding="5" border="0">
-              <tr>
-              	<td>
-	                <xsl:if test="notification_data/message='RECALL_DUEDATE_CHANGE'">
-						<b>@@recall_and_date_change@@</b>
+					<xsl:if test="notification_data/message='RECALL_DUEDATE_CHANGE'">
+						<p><b>@@recall_and_date_change@@</b></p>
 					</xsl:if>
 					<xsl:if test="notification_data/message='RECALL_ONLY'">
-						<b>@@recall_and_no_date_change@@</b>
+						<p><b>@@recall_and_no_date_change@@</b></p>
 					</xsl:if>
 					<xsl:if test="notification_data/message='DUE_DATE_CHANGE_ONLY'">
-						<b>@@message@@</b>
+						<p><b>@@message@@</b></p>
 					</xsl:if>
 					<xsl:if test="notification_data/message='RECALL_CANCEL_RESTORE_ORIGINAL_DUEDATE'">
-						<b>@@cancel_recall_date_change@@</b>
+						<p><b>@@cancel_recall_date_change@@</b></p>
 					</xsl:if>
 					<xsl:if test="notification_data/message='RECALL_CANCEL_ITEM_RENEWED'">
-						<b>@@cancel_recall_renew@@</b>
+						<p><b>@@cancel_recall_renew@@</b></p>
 					</xsl:if>
 					<xsl:if test="notification_data/message='RECALL_CANCEL_NO_CHANGE'">
-						<b>@@cancel_recall_no_date_change@@</b>
+						<p><b>@@cancel_recall_no_date_change@@</b></p>
 					</xsl:if>
 
-					<br/><br/>
-                </td>
-              </tr>
-
-              <tr>
-              	<td>
-					<b>@@loans@@</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                	<table cellpadding="5" class="listing">
+					<table cellpadding="5" class="listing">
 						<xsl:attribute name="style">
 							<xsl:call-template name="mainTableStyleCss" /> <!-- style.xsl -->
 						</xsl:attribute>
@@ -86,23 +71,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						</tr>
 						</xsl:for-each>
 
-                	</table>
-                </td>
-              </tr>
-             </table>
+					</table>
 
-			<br />
-			<table>
-				<tr><td>@@sincerely@@</td></tr>
-				<tr><td>@@department@@</td></tr>
-			</table>
-
-          </div>
-        </div>
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
 
 				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-				<xsl:call-template name="contactUs" />
-                                <xsl:call-template name="myAccount" />
 			</body>
 	</html>
 </xsl:template>

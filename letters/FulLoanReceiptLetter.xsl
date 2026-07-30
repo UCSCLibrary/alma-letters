@@ -8,8 +8,9 @@
   <xsl:include href="recordTitle.xsl" />
 
   <xsl:template match="/">
-    <html>
-      <head>
+	<html lang="en" dir="ltr">
+		<head>
+			<title><xsl:value-of select="notification_data/general_data/subject"/></title>
         <xsl:call-template name="generalStyle" />
       </head>
       <body>
@@ -19,35 +20,16 @@
 
         <xsl:call-template name="head" /><!-- header.xsl -->
 		<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-		<div class="messageArea">
+
         <div class="messageBody">
 
+					<p>@@inform_loaned_items@@ </p>
 
-        	<table cellspacing="0" cellpadding="5" border="0">
-				<tr>
-				<td>
-					<h>@@inform_loaned_items@@ </h>
-				</td>
-				</tr>
-
-				<tr>
-              	<td>
-					<b>@@loans@@</b>
-                </td>
-              	</tr>
-
-              	<xsl:for-each select="notification_data/loans_by_library/library_loans_for_display">
-					<tr>
-						<td>
+            <xsl:for-each select="notification_data/loans_by_library/library_loans_for_display">
 							<table cellpadding="5" class="listing">
 								<xsl:attribute name="style">
 									<xsl:call-template name="mainTableStyleCss" />
 								</xsl:attribute>
-								<tr align="center" bgcolor="#f5f5f5">
-									<td colspan="6">
-										<h3><xsl:value-of select="organization_unit/name" /></h3>
-									</td>
-								</tr>
 								<tr>
 									<th>@@title@@</th>
 									<th>@@author@@</th> <!-- Barcode-->
@@ -68,25 +50,14 @@
 									</tr>
 								</xsl:for-each>
 							</table>
-						</td>
-					</tr>
-					<hr/><br/>
 				</xsl:for-each>
-				<br />
-				<br />
-			</table>
 
-			<table>
-				<tr><td>@@sincerely@@</td></tr>
-				<tr><td>@@department@@</td></tr>
-			</table>
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
 
-	  		</div>
-        </div>
         <!-- footer.xsl -->
         <xsl:call-template name="lastFooter" />
-        <xsl:call-template name="contactUs" />
-        <xsl:call-template name="myAccount" />
       </body>
     </html>
   </xsl:template>
