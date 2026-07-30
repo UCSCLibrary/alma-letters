@@ -9,8 +9,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:include href="style.xsl" />
 
 <xsl:template match="/">
-	<html>
+	<html lang="en" dir="ltr">
 		<head>
+			<title>Fines and Fees Notification</title>
 		<xsl:call-template name="generalStyle" />
 		</head>
 
@@ -21,21 +22,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 				<xsl:call-template name="head" /> <!-- header.xsl -->
    <xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-				<br />
 
-		<table cellspacing="0" cellpadding="5" border="0">
-				<tr>
-				<td>
-					<h>@@we_would_like@@ @@debt_of@@ <b><xsl:value-of select="notification_data/total_fines_amount"/>
-					&#160;<xsl:value-of select="notification_data/total_fines_currency"/></b></h>
-				</td>
-				</tr>
-				</table>
-
-				<table cellpadding="5" class="listing">
-				<xsl:attribute name="style">
-					<xsl:call-template name="mainTableStyleCss" /> <!-- style.xsl -->
-				</xsl:attribute>
+   <div class="messageBody">
+				<p>@@we_would_like@@ @@debt_of@@ <b><xsl:value-of select="notification_data/total_fines_amount"/>
+					&#160;<xsl:value-of select="notification_data/total_fines_currency"/></b></p>
 
 				<table cellpadding="5" class="listing">
 				<xsl:attribute name="style">
@@ -64,29 +54,22 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					</tr>
 					</xsl:for-each>
 
-				</table><br />
+				</table>
+
 				<xsl:if test="notification_data/fine_fee_notification_fee_amount/sum !=''">
-		        	<tr>
-		            	<td>
+		        	<p>
 		                	<b>@@fine_fee_notification_fee@@ </b>
 		                    <xsl:value-of select="notification_data/fine_fee_notification_fee_amount/normalized_sum"/>&#160;<xsl:value-of select="notification_data/fine_fee_notification_fee_amount/currency"/>&#160;<xsl:value-of select="ff"/>
-		                </td>
-		            </tr>
+		            </p>
 		        </xsl:if>
-<h>@@please_settle@@ For more information see <a href="https://guides.library.ucsc.edu/library-billing">Library Billing</a>.</h>
 
-				<br />
-				<br />
-				<table>
-						<tr><td>@@sincerely@@</td></tr>
-						<tr><td>@@department@@</td></tr>
-				</table>
-				</table>
-				<br />
+<p>@@please_settle@@ For more information see <a href="https://guides.library.ucsc.edu/library-billing">Library Billing</a>.</p>
+
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
 
 				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-          <xsl:call-template name="contactUs" />
-                                <xsl:call-template name="myAccount" />
 			</body>
 	</html>
 </xsl:template>
