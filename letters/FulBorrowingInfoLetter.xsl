@@ -30,61 +30,42 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
 
-		<div class="messageArea">
 				<div class="messageBody">
-						<table role='presentation'  cellspacing="0" cellpadding="5" border="0">
-							
+
 						<xsl:choose>
 							<xsl:when test="notification_data/success='true'">
 								<!--<td>@@on@@ <xsl:value-of select="notification_data/general_data/current_date"/> @@we_renewed_y_req_from@@ <xsl:value-of select="notification_data/outgoing/create_date"/> @@detailed_below@@ :</td>-->
-								<tr><td>@@renewed_loan@@:</td></tr>
+								<p>@@renewed_loan@@:</p>
 							</xsl:when>
 
 							<xsl:otherwise>
-								<td>@@not_renewed_loan@@:</td>
+								<p>@@not_renewed_loan@@:</p>
 							</xsl:otherwise>
 						</xsl:choose>
 
-						<tr>
-							<td><xsl:call-template name="recordTitle" /> <!-- recordTitle.xsl --></td>
-						</tr>
+						<p><xsl:call-template name="recordTitle" /> <!-- recordTitle.xsl --></p>
 
 						<xsl:choose>
-
 							<xsl:when test="notification_data/success='true'">
-								<tr>
-									<td>@@new_due_date@@: <xsl:value-of select="notification_data/item_loan_due_date"/></td>
-								</tr>
-
-								<tr>
-									<td><strong>@@success_reason@@</strong></td>
-								</tr>
+								<p>@@new_due_date@@: <xsl:value-of select="notification_data/item_loan_due_date"/></p>
+								<p><strong>@@success_reason@@</strong></p>
 							</xsl:when>
 
 							<xsl:otherwise>
 								<xsl:choose>
 									<xsl:when test="notification_data/note != ''">
-										<tr>
-											<td><strong>@@failure_reason@@: <xsl:value-of select="notification_data/note"/></strong></td>
-										</tr>
+										<p><strong>@@failure_reason@@: <xsl:value-of select="notification_data/note"/></strong></p>
 									</xsl:when>
 								</xsl:choose>
-								<tr>
-									<td><strong>@@contact_dep@@</strong></td>
-								</tr>
-							</xsl:otherwise>
 
+								<p><strong>@@contact_dep@@</strong></p>
+							</xsl:otherwise>
 						</xsl:choose>
-					</table>
-		
-					<br />
-		
-					<table role='presentation' >
-						<tr><td>@@sincerely@@</td></tr>
-						<tr><td>@@department@@</td></tr>
-					</table>
-				</div>
-			</div>
+
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
+
 			<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
 		</body>
 	</html>

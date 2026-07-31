@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:include href="header.xsl" />
 <xsl:include href="mailReason.xsl" />
@@ -9,8 +8,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:include href="style.xsl" />
 
 <xsl:template match="/">
-	<html>
+	<html lang="en" dir="ltr">
 		<head>
+			<title><xsl:value-of select="notification_data/general_data/subject"/></title>
 		<xsl:call-template name="generalStyle" />
 		</head>
 
@@ -21,97 +21,33 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 				<xsl:call-template name="head" /> <!-- header.xsl -->
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-					@@You_were_specify@@:
-				<br />
-				<table cellspacing="0" cellpadding="5" border="0">
-				<!--<tr>
-					<td>
-				<br />
-				@@orderNumber@@	:
+				<div class="messageBody">
+					<p>@@You_were_specify@@:</p>
 
-						<br />
-
-					</td>
-						<td>
-				<br />
-				<xsl:value-of  select="notification_data/line_number"/>
-
-						<br />
-
-					</td>
-					</tr>-->
-				<tr>
-					<td>
-				<br />
-				@@title@@ 
-
-						<br />
-
-					</td>
-						<td>
-				<br />
-				<a>
+				<!-- <p>@@orderNumber@@:&#160;<xsl:value-of select="notification_data/line_number"/></p> -->
+				
+				<p>@@title@@
+					<a>
 					<xsl:attribute name="href">
 					    <xsl:value-of select='concat("https://ucsc.primo.exlibrisgroup.com/discovery/fulldisplay?docid=alma", notification_data/mms_id, "&amp;vid=01CDL_SCR_INST:USCS&amp;lang=en" )' />
 		            </xsl:attribute>
 			        <xsl:value-of  select="notification_data/title"/>
-				</a>
+					</a>
+				</p>
 
-						<br />
+				<!--<p>@@mmsId@@ 
+					<xsl:value-of  select="notification_data/mms_id"/>
+					</p>-->
 
-					</td>
-					</tr>
-				<!--<tr>
-					<td>
-				<br />
-				@@mmsId@@ 
-
-						<br />
-
-					</td>
-						<td>
-				<br />
-				<xsl:value-of  select="notification_data/mms_id"/>
-
-						<br />
-
-					</td>
-					</tr>-->
 				<xsl:if test="notification_data/message != 'E-resource was activated.'"> 
-				<tr>
-					<td>
-						<br />@@callNumber@@ <br />
-					</td>
-					<td>
-						<br /><xsl:value-of  select="notification_data/poline_inventory/call_number"/><br />
-					</td>
-				</tr>
+				<p>@@callNumber@@&#160;<xsl:value-of  select="notification_data/poline_inventory/call_number"/></p>
 				</xsl:if>
-				<!--<tr>
-					<td>
-				<br />
-				@@receivingNote@@ 
 
-						<br />
-
-					</td>
-						<td>
-				<br />
+				<!--<p>@@receivingNote@@ 
 				<xsl:value-of  select="notification_data/receiving_note"/>
-						<br />
+				</p>-->
 
-					</td>
-				</tr>-->
-					<tr>
-					<td>
-				<br />
-				@@message@@	
-
-						<br />
-
-					</td>
-						<td>
-				<br />
+				<p>@@message@@&#160;
 				<xsl:choose>
 				  <xsl:when test="notification_data/message='E-resource was activated.'">
 				    This E-Resource is now available in UC Library Search.
@@ -120,21 +56,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				    <xsl:value-of  select="notification_data/message"/>
 				  </xsl:otherwise>
 				</xsl:choose>
-						<br />
+				</p>
 
-					</td>
-					</tr>
-
-				</table>
-				<br />
-				<table>
-						<tr><td>@@sincerely@@</td></tr>
-						<tr><td>@@department@@</td></tr>
-				</table>
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
 
 				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-				<xsl:call-template name="contactUs" />
-                                <xsl:call-template name="myAccount" />
 			</body>
 	</html>
 </xsl:template>

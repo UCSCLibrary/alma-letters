@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
   <xsl:include href="header.xsl" />
   <xsl:include href="mailReason.xsl" />
@@ -9,8 +8,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:include href="recordTitle.xsl" />
 
   <xsl:template match="/">
-    <html>
-      <head>
+	<html lang="en" dir="ltr">
+		<head>
+			<title><xsl:value-of select="notification_data/general_data/subject"/></title>
         <xsl:call-template name="generalStyle" />
       </head>
       <body>
@@ -20,35 +20,15 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
         <xsl:call-template name="head" /><!-- header.xsl -->
 		<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
-		<div class="messageArea">
+
         <div class="messageBody">
+					<p>@@inform_returned_items@@: <xsl:value-of select="notification_data/organization_unit/name"/>&#44;&#160;<xsl:value-of select="notification_data/circ_desk_name"/></p>
 
-
-        	<table cellspacing="0" cellpadding="5" border="0">
-				<tr>
-				<td>
-					<h>@@inform_returned_items@@ <xsl:value-of select="notification_data/organization_unit/name"/>&#44;&#160;<xsl:value-of select="notification_data/circ_desk_name"/></h>
-				</td>
-				</tr>
-
-				<tr>
-              	<td>
-					<b>@@loans@@</b>
-                </td>
-              	</tr>
-
-              	<xsl:for-each select="notification_data/loans_by_library/library_loans_for_display">
-					<tr>
-						<td>
+          <xsl:for-each select="notification_data/loans_by_library/library_loans_for_display">
 							<table cellpadding="5" class="listing">
 								<xsl:attribute name="style">
 									<xsl:call-template name="mainTableStyleCss" />
 								</xsl:attribute>
-								<tr align="center" bgcolor="#f5f5f5">
-									<td colspan="7">
-										<h3><xsl:value-of select="organization_unit/name" /></h3>
-									</td>
-								</tr>
 								<tr>
 									<th>@@title@@</th>
 									<th>@@description@@</th>
@@ -71,25 +51,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 									</tr>
 								</xsl:for-each>
 							</table>
-						</td>
-					</tr>
-					<hr/><br/>
 				</xsl:for-each>
-				<br />
-				<br />
-			</table>
 
-			<table>
-				<tr><td>@@sincerely@@</td></tr>
-				<tr><td>@@department@@</td></tr>
-			</table>
-
-	  		</div>
-        </div>
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
         <!-- footer.xsl -->
         <xsl:call-template name="lastFooter" />
-                                <xsl:call-template name="contactUs" />
-                                <xsl:call-template name="myAccount" /> 
       </body>
     </html>
   </xsl:template>

@@ -8,8 +8,9 @@
 	<xsl:include href="style.xsl" />
 	<xsl:include href="recordTitle.xsl" />
 	<xsl:template match="/">
-		<html>
+	<html lang="en" dir="ltr">
 			<head>
+			<title><xsl:value-of select="notification_data/general_data/subject"/></title>
 				<xsl:call-template name="generalStyle" />
 			</head>
 			<body>
@@ -20,296 +21,153 @@
 				<xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
 
-				<div class="messageArea">
 					<div class="messageBody">
-						<table cellspacing="0" cellpadding="5" border="0">
-							<tr>
-								<td>
-									@@on@@
+						<p>@@on@@
 									<xsl:value-of select="notification_data/general_data/current_date" />
 									@@we_cancel_y_req_of@@
 									<xsl:value-of select="notification_data/request/create_date" />
-									@@detailed_below@@ :
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<xsl:call-template name="recordTitle" /> <!-- recordTitle.xsl -->
-								</td>
-							</tr>
+									@@detailed_below@@:
+								</p>
+							<p><xsl:call-template name="recordTitle" /></p> <!-- recordTitle.xsl -->
+
+							<p>
 							<!-- <xsl:if test="notification_data/metadata/title != ''">
-								<tr>
-									<td>
 										<b>@@title@@: </b>
-										<xsl:value-of select="notification_data/metadata/title" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/title" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/journal_title != ''">
-								<tr>
-									<td>
 										<b> @@journal_title@@: </b>
-										<xsl:value-of select="notification_data/metadata/journal_title" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/journal_title" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/author != ''">
-								<tr>
-									<td>
 										<b> @@author@@: </b>
-										<xsl:value-of select="notification_data/metadata/author" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/author" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/author_initials != ''">
-								<tr>
-									<td>
 										<b>@@author_initials@@: </b>
-										<xsl:value-of select="notification_data/metadata/author_initials" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/author_initials" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/edition != ''">
-								<tr>
-									<td>
 										<b> @@edition@@: </b>
-										<xsl:value-of select="notification_data/metadata/edition" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/edition" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/identifier != ''">
-								<tr>
-									<td>
 										<b>@@identifier@@: </b>
-										<xsl:value-of select="notification_data/metadata/identifier" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/identifier" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/lccn != ''">
-								<tr>
-									<td>
 										<b> @@lccn@@: </b>
-										<xsl:value-of select="notification_data/metadata/lccn" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/lccn" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/issn != ''">
-								<tr>
-									<td>
 										<b>@@issn@@: </b>
-										<xsl:value-of select="notification_data/metadata/issn" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/issn" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/isbn != ''">
-								<tr>
-									<td>
 										<b> @@isbn@@: </b>
-										<xsl:value-of select="notification_data/metadata/isbn" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/isbn" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/oclc_nr != ''">
-								<tr>
-									<td>
 										<b> @@oclc_nr@@: </b>
-										<xsl:value-of select="notification_data/metadata/oclc_nr" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/oclc_nr" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/doi != ''">
-								<tr>
-									<td>
 										<b>@@doi@@: </b>
-										<xsl:value-of select="notification_data/metadata/doi" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/doi" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/pmid != ''">
-								<tr>
-									<td>
 										<b> @@pmid@@: </b>
-										<xsl:value-of select="notification_data/metadata/pmid" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/pmid" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/publisher != ''">
-								<tr>
-									<td>
 										<b> @@publisher@@: </b>
-										<xsl:value-of select="notification_data/metadata/publisher" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/publisher" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/publication_date != ''">
-								<tr>
-									<td>
 										<b>@@publication_date@@: </b>
-										<xsl:value-of select="notification_data/metadata/publication_date" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/publication_date" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/place_of_publication != ''">
-								<tr>
-									<td>
 										<b> @@place_of_publication@@: </b>
-										<xsl:value-of select="notification_data/metadata/place_of_publication" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/place_of_publication" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/additional_person_name != ''">
-								<tr>
-									<td>
 										<b> @@additional_person_name@@: </b>
-										<xsl:value-of select="notification_data/metadata/additional_person_name" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/additional_person_name" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/source != ''">
-								<tr>
-									<td>
 										<b>@@source@@: </b>
-										<xsl:value-of select="notification_data/metadata/source" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/source" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/series_title_number != ''">
-								<tr>
-									<td>
 										<b> @@series_title_number@@: </b>
-										<xsl:value-of select="notification_data/metadata/series_title_number" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/series_title_number" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/call_number != ''">
-								<tr>
-									<td>
 										<b> @@call_number@@: </b>
-										<xsl:value-of select="notification_data/metadata/call_number" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/call_number" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/volume != ''">
-								<tr>
-									<td>
 										<b>@@volume@@: </b>
-										<xsl:value-of select="notification_data/metadata/volume" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/volume" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/part != ''">
-								<tr>
-									<td>
 										<b> @@part@@: </b>
-										<xsl:value-of select="notification_data/metadata/part" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/part" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/chapter != ''">
-								<tr>
-									<td>
 										<b> @@chapter@@: </b>
-										<xsl:value-of select="notification_data/metadata/chapter" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/chapter" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/pages != ''">
-								<tr>
-									<td>
 										<b>@@pages@@: </b>
-										<xsl:value-of select="notification_data/metadata/pages" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/pages" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/start_page != ''">
-								<tr>
-									<td>
 										<b> @@start_page@@: </b>
-										<xsl:value-of select="notification_data/metadata/start_page" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/start_page" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/end_pagee != ''">
-								<tr>
-									<td>
 										<b> @@end_page@@: </b>
-										<xsl:value-of select="notification_data/metadata/end_page" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/end_page" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/issue != ''">
-								<tr>
-									<td>
 										<b>@@issue@@: </b>
-										<xsl:value-of select="notification_data/metadata/issue" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/issue" /><br />
 							</xsl:if>
 							<xsl:if test="notification_data/metadata/note != ''">
-								<tr>
-									<td>
 										<b> @@note@@: </b>
-										<xsl:value-of select="notification_data/metadata/note" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/metadata/note" /><br />
 							</xsl:if> -->
 
 
 							<xsl:if test="notification_data/request/start_time != ''">
-								<tr>
-									<td>
 										<b> @@start_time@@: </b>
-										<xsl:value-of select="notification_data/booking_start_time_str" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/booking_start_time_str" /><br />
 							</xsl:if>
 						<xsl:if test="notification_data/request/end_time != ''">
-								<tr>
-									<td>
 										<b> @@end_time@@: </b>
-										<xsl:value-of select="notification_data/booking_end_time_str" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/booking_end_time_str" /><br />
 							</xsl:if>
 						<!-- <xsl:if test="notification_data/request/note != ''">
-								<tr>
-									<td>
 										<b> @@request_note@@: </b>
-										<xsl:value-of select="notification_data/request/note" />
-									</td>
-								</tr>
+										<xsl:value-of select="notification_data/request/note" /><br />
 							</xsl:if> -->
-							<tr>
-								<td>
+							<xsl:if test="notification_data/request/status_note_display != ''">
 									<b> @@reason_deleting_request@@: </b>
-									<xsl:value-of select="notification_data/request/status_note_display" />
-								</td>
-							</tr>
-							<xsl:if test="notification_data/request/cancel_reason != ''">
-								<tr>
-									<td>
-										<b> @@request_cancellation_note@@: </b>
-										<xsl:value-of select="notification_data/request/cancel_reason" />
-									</td>
-								</tr>
+									<xsl:value-of select="notification_data/request/status_note_display" /><br />
 							</xsl:if>
-						</table>
-						<br />
-						<table>
+							<xsl:if test="notification_data/request/cancel_reason != ''">
+										<b> @@request_cancellation_note@@: </b>
+										<xsl:value-of select="notification_data/request/cancel_reason" /><br />
+							</xsl:if>
+						</p>
 
-							<tr>
-								<td>@@sincerely@@</td>
-							</tr>
-							<tr>
-								<td>@@department@@</td>
-							</tr>
+	<p><span>@@sincerely@@</span><br />
+	<span>@@department@@</span></p>
+</div>
 
-						</table>
-					</div>
-				</div>
 				<xsl:call-template name="lastFooter" /> <!-- footer.xsl -->
-				<xsl:call-template name="contactUs" />
-                                <xsl:call-template name="myAccount" />
 			</body>
 		</html>
 	</xsl:template>

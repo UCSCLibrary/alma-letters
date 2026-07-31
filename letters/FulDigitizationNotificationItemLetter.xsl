@@ -38,99 +38,67 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <!-- header.xsl -->
         <xsl:call-template name="senderReceiver" />
         <!-- SenderReceiver.xsl -->
-        <div class="messageArea">
+
           <div class="messageBody">
-            <table role='presentation'  cellspacing="0" cellpadding="5" border="0">
-				<tr>
-					<td>@@your_request@@.</td>
-				</tr>
+            <p>@@your_request@@.</p>
+
 				<xsl:if test="$isDeposit='true'">
-				<tr>
-					<td>@@material@@:</td>
-				</tr>
-				<tr>
-					<td>
-					<a>
+				<p>@@material@@: <a>
                         <xsl:attribute name="href">
                           <xsl:value-of select="notification_data/item_url" />
                         </xsl:attribute>
 						<xsl:value-of select="notification_data/phys_item_display/title"/>
 					</a>
-					</td>
-				</tr>
+				</p>
 				</xsl:if>
 
 				<xsl:if test="$isDigitalDocDelivery='true' or $isDeposit='false'"> <!-- DOCUMENT DELIVERY -->
-					<tr>
-						<td>@@material@@:</td>
-					</tr>
-					<tr>
-						<td>
-							<xsl:value-of select="notification_data/phys_item_display/title"/>
-						</td>
-					</tr>
+					<p>@@material@@:&#160;<xsl:value-of select="notification_data/phys_item_display/title"/></p>
+
 					<!--<xsl:if test="$externalRequestId">
-						<tr>
-							<td>@@the_request_relates@@<xsl:value-of select="$externalRequestId"/> @@of@@ <xsl:value-of select="$externalSystem"/>.</td>
-						</tr>
+						<p>@@the_request_relates@@<xsl:value-of select="$externalRequestId"/> @@of@@ <xsl:value-of select="$externalSystem"/>.</p>
 					</xsl:if> -->
 
 					<xsl:if test="/notification_data/url_list[string]">
-						<tr>
-							<td>@@attached_are_the_urls@@:</td>
-						</tr>
-
+						<p>@@attached_are_the_urls@@:</p>
+						<ul>
 						<xsl:for-each select="/notification_data/attachments_list/attachments">
 							<xsl:if test="url">
-							<tr>
-								<td>
+								<li>
 									<a>
 									<xsl:attribute name="href">
 										<xsl:value-of select="url" />
 									</xsl:attribute>
 									<xsl:value-of select="url" />
-									</a>
-								</td>
-							</tr>
-
+									</a></li>
 							</xsl:if>
 						</xsl:for-each>
+						</ul>
 
 					</xsl:if>
-                </xsl:if>
-                <tr>
-					<td>@@request_type_digitization@@</td>
-				</tr>
+        </xsl:if>
+
+					<p>@@request_type_digitization@@</p>
+
 				<xsl:if test="/notification_data/request/citation_upload_file_status">
 					<xsl:choose>
-						<xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_NOT_UPLOADED_FILE_EXISTS'">
-	                        <tr>
-	                            <td>@@file_not_uploaded_file_exists@@.</td>
-	                        </tr>
+											<xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_NOT_UPLOADED_FILE_EXISTS'">
+	                        <p>@@file_not_uploaded_file_exists@@.</p>
 	                    </xsl:when>
 	                    <xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_NOT_UPLOADED_MULTIPLE_FILES'">
-	                        <tr>
-	                            <td>@@file_not_uploaded_multiple_files@@.</td>
-	                        </tr>
+	                        <p>@@file_not_uploaded_multiple_files@@.</p>
 	                    </xsl:when>
 	                    <xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_NOT_UPLOADED_GENERAL_ERROR'">
-	                        <tr>
-	                            <td>@@file_not_uploaded_general_error@@.</td>
-	                        </tr>
+	                        <p>@@file_not_uploaded_general_error@@.</p>
 	                    </xsl:when>	 
 	                    <xsl:when test="/notification_data/request/citation_upload_file_status = 'FILE_UPLOADED_SUCCESS'">
-	                        <tr>
-	                            <td>@@file_uploaded@@.</td>
-	                        </tr>
+	                        <p>@@file_uploaded@@.</p>
 	                    </xsl:when>	                     
-	                </xsl:choose>
-                </xsl:if>	
-            	<tr>
-					<td>@@sincerely@@<br/>@@department@@</td>
-				</tr>
-			</table>
+	         </xsl:choose>
+         </xsl:if>	
+
+					<p>@@sincerely@@<br/>@@department@@</p>
           </div>
-        </div>
         <xsl:call-template name="lastFooter" />
         <!-- footer.xsl -->
       </body>

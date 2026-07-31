@@ -10,8 +10,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:include href="recordTitle.xsl" />
 
   <xsl:template match="/">
-    <html>
-      <head>
+    <html lang="en" dir="ltr">
+        <head>
+            <title><xsl:value-of select="notification_data/general_data/subject"/></title>
         <xsl:call-template name="generalStyle" />
       </head>
       <body>
@@ -22,28 +23,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:call-template name="head" /><!-- header.xsl -->
         <xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
 
-        <br />
         <xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
 
-        <div class="messageArea">
           <div class="messageBody">
 
-            <table role='presentation' cellspacing="0" cellpadding="5" border="0">  
-                  <tr>
-                    <td>
-                        <h>@@message@@</h>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td>
-                        <h>@@following_items_awaiting_pickup@@</h>
-                    </td>
-                  </tr>
+            <p>@@message@@</p>
+            <p>@@following_items_awaiting_pickup@@</p>
 
                   <xsl:for-each select="notification_data/requests_by_library/library_requests_for_display">
-                        <tr>
-                            <td>
                                 <table cellpadding="5" class="listing">
                                     <xsl:attribute name="style">
                                         <xsl:call-template name="mainTableStyleCss" />
@@ -69,14 +56,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                                         </tr>
                                     </xsl:for-each>
                                 </table>
-                            </td>
-                        </tr>
-                        <br/>
                     </xsl:for-each>
                     
                     <xsl:if test="notification_data/out_of_institution_requests/request_for_display">
-                        <tr>
-                            <td>
                                 <table cellpadding="5" class="listing">
                                     <xsl:attribute name="style">
                                         <xsl:call-template name="mainTableStyleCss" />
@@ -102,34 +84,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                                         </tr>
                                     </xsl:for-each>
                                 </table>
-                            </td>
-                        </tr>
-                        <br/>
                     </xsl:if>
                     
                     <xsl:if test="notification_data/user_for_printing/blocks != ''">
-                        <tr>
-                            <td><b>@@notes_affect_loan@@:</b></td>
-                        </tr>
-                        <tr>
-                            <td><xsl:value-of select="notification_data/user_for_printing/blocks"/></td>
-                        </tr>
+                        <p><b>@@notes_affect_loan@@:</b></p>
+                        <p><xsl:value-of select="notification_data/user_for_printing/blocks"/></p>
                     </xsl:if>
-                  
-            </table>
-      
-            <br />
-            <table role='presentation' >
-                <tr><td>@@sincerely@@</td></tr>
-                <tr><td>@@department@@</td></tr>
-            </table>
+  
+    <p><span>@@sincerely@@</span><br />
+    <span>@@department@@</span></p>
           </div>
-        </div>
 
         <!-- footer.xsl -->
         <xsl:call-template name="lastFooter" />
-        <xsl:call-template name="myAccount" />
-        <xsl:call-template name="contactUs" />
       </body>
     </html>
   </xsl:template>
