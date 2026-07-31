@@ -26,7 +26,7 @@ width:100%; text-align:left; margin-bottom:30px;
 </xsl:template>
 
 <xsl:template name="headerLogoStyleCss">
-background-color:#003c6c; width:100%; padding:20px;
+background-color:#003c6c; width:100%; padding:20px; box-sizing:border-box;
 </xsl:template>
 
 <xsl:template name="headerTableStyleCss">
