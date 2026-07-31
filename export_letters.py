@@ -309,6 +309,7 @@ def debug_letters(letter_type="LETTER"):
     customized_count = 0
     both_count = 0
 
+    print("\nAll Letters:")
     for letter in all_letters:
         enabled = letter.get("enabled", {})
         customized = letter.get("customized", {})
@@ -323,17 +324,22 @@ def debug_letters(letter_type="LETTER"):
         if is_enabled and is_customized:
             both_count += 1
 
+        print(f"  {letter.get('code')} - {letter.get('name')} (enabled={is_enabled}, customized={is_customized})")
+
+    print()
     print(f"  Enabled: {enabled_count}")
     print(f"  Customized: {customized_count}")
     print(f"  Both (will be exported): {both_count}")
 
     # Show the letters that will be exported
+    """
     filtered = filter_customized(all_letters)
     if filtered:
         print(f"\nLetters to export ({len(filtered)}):")
         print("-" * 60)
         for letter in filtered:
             print(f"  {letter.get('code')} - {letter.get('name')}")
+    """
 
 
 def get_base_url():
