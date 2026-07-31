@@ -62,11 +62,11 @@ width:100%; padding:5px 20px; background-color:#fff; font-size:0; box-sizing:bor
 </xsl:template>
 
 <xsl:template name="receiverStyle">
-display: inline-block; width: 50%; max-width: 50%; font-size: 16px;
+display: inline-block; width: 50%; max-width: 50%; vertical-align: top; font-size: 16px;
 </xsl:template>
 
 <xsl:template name="senderStyle">
-display: inline-block; width: 49%; max-width: 49%; text-align: right; font-size: 16px;
+display: inline-block; width: 49%; max-width: 49%; vertical-align: top; text-align: right; font-size: 16px;
 </xsl:template>
 
 </xsl:stylesheet>
