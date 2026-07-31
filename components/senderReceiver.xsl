@@ -24,21 +24,27 @@
 			<xsl:variable name="address3" select="notification_data/user_for_printing/address3"></xsl:variable>
 			<xsl:variable name="address4" select="notification_data/user_for_printing/address4"></xsl:variable>
 			<xsl:variable name="address5" select="notification_data/user_for_printing/address5"></xsl:variable>
+			<xsl:variable name="state" select="notification_data/user_for_printing/state"></xsl:variable>
 			<xsl:if test="$address1 != ''"><xsl:value-of select="$address1"/><br /></xsl:if>
 			<xsl:if test="$address2 != ''"><xsl:value-of select="$address2"/><br /></xsl:if>
 			<xsl:if test="$address3 != ''"><xsl:value-of select="$address3"/><br /></xsl:if>
 			<xsl:if test="$address4 != ''"><xsl:value-of select="$address4"/><br /></xsl:if>
 			<xsl:if test="$address5 != ''"><xsl:value-of select="$address5"/><br /></xsl:if>
-			<xsl:value-of select="notification_data/user_for_printing/city"/>,&#160;<xsl:value-of select="notification_data/user_for_printing/state"/>&#160;<xsl:value-of select="notification_data/user_for_printing/postal_code"/><br />
+			<xsl:value-of select="notification_data/user_for_printing/city"/>
+			<xsl:if test="$state != ''">,&#160;<xsl:value-of select="$state"/></xsl:if>
+			&#160;<xsl:value-of select="notification_data/user_for_printing/postal_code"/><br />
 			<xsl:value-of select="notification_data/user_for_printing/country"/></p>
 		</xsl:when>
 
 		<xsl:when test="notification_data/receivers/receiver/user">
 			<xsl:for-each select="notification_data/receivers/receiver/user">
+			<xsl:variable name="rec_state" select="user_address_list/user_address/state_province"></xsl:variable>
 			<p><b><xsl:value-of select="last_name"/>,&#160;<xsl:value-of select="first_name"/></b><br />
 			<xsl:value-of select="user_address_list/user_address/line1"/><br />
 			<xsl:value-of select="user_address_list/user_address/line2"/><br />
-			<xsl:value-of select="user_address_list/user_address/city"/>,&#160;<xsl:value-of select="user_address_list/user_address/state_province"/>&#160;<xsl:value-of select="user_address_list/user_address/postal_code"/><br />
+			<xsl:value-of select="user_address_list/user_address/city"/>
+			<xsl:if test="$rec_state != ''">,&#160;<xsl:value-of select="$rec_state"/></xsl:if>
+			&#160;<xsl:value-of select="user_address_list/user_address/postal_code"/><br />
 			<xsl:value-of select="user_address_list/user_address/country"/></p>
 			</xsl:for-each>
 		</xsl:when>
@@ -60,7 +66,9 @@
 			<p><xsl:value-of select="name"/><br />
 			<xsl:if test="address/line1 != ''"><xsl:value-of select="address/line1"/><br /></xsl:if>
 			<xsl:if test="address/line2 != ''"><xsl:value-of select="address/line2"/><br /></xsl:if>
-			<xsl:value-of select="address/city"/>,&#160;<xsl:value-of select="address/state_province"/>&#160;<xsl:value-of select="address/postal_code"/><br />
+			<xsl:value-of select="address/city"/>
+			<xsl:if test="address/state_province != ''">,&#160;<xsl:value-of select="address/state_province"/></xsl:if>
+			&#160;<xsl:value-of select="address/postal_code"/><br />
 			<xsl:value-of select="address/country"/></p>
 		</div>
 	</xsl:for-each>
