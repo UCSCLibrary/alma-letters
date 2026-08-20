@@ -46,6 +46,9 @@
 					<xsl:if test="notification_data/message='RECALL_CANCEL_NO_CHANGE'">
 						<p><b>@@cancel_recall_no_date_change@@</b></p>
 					</xsl:if>
+					<xsl:if test="notification_data/message='DUE_DATE_CHANGE_FOLLOWED_BY_USER_EXPIRY_DATE_CHANGE'">
+						<p><b>@@user_expiry_date_change_message@@</b></p>
+					</xsl:if>
 
 					<table cellpadding="5" class="listing">
 						<xsl:attribute name="style">
