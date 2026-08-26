@@ -31,11 +31,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</strong>
 			</h1>
 
-
-				<xsl:call-template name="head" /> <!-- header.xsl -->
-
-
-
 			<div class="messageArea">
 				<div class="messageBody">
 					 <table role='presentation'  cellspacing="0" cellpadding="5" border="0">
