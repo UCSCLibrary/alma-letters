@@ -26,6 +26,7 @@ FulOverdueAndLostLoanLetter
 FulOverdueAndLostLoanNotificationLetter
 FulPlaceOnHoldShelfLetter
 FulRequestsReportLetter
+FulReasourceRequestSlipLetter
 FulReturnReceiptLetter
 FulUserBorrowingActivityLetter
 FulUserLoansCourtesyLetter
