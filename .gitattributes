@@ -1,0 +1,2 @@
+# Ex-Libris exports using CRLF line endings, preserve those across operating systems
+* text eol=crlf
