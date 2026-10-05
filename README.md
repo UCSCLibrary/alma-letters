@@ -5,13 +5,15 @@ Customized XSL letter templates for Ex Libris Alma, forked from [cuny-libraries/
 
 ## CLI Tool
 
-This repository includes a command-line tool to sync letters between your local files and Alma via the Configuration API.
+Alma-letters is a command-line tool to sync letters between your local files and Alma via the Configuration API. It can also serve as the repository for your institutions Alma letter templates.
 
 ### Installation
 
 ```bash
 pipx install .
 ```
+
+**Important:** After first cloning this repository, delete the contents of the letters and components subfolders, or you risk overwriting your templates with UCSC's.
 
 ### Configuration
 
@@ -56,6 +58,7 @@ alma-letters --debug
 
 Lines starting with `#` are comments.
 
+If you do not define the list of templates to download, the tool will default to downloading templates that are both enabled and customized.
 
 ## Resources
 
@@ -70,10 +73,6 @@ Lines starting with `#` are comments.
 | On Hold Shelf Reminder Letter | FulOnHoldShelfReminderLetter | 
 | Overdue Notice Letter | FulUserOverdueNoticeLetter |
 | Return Receipt Letter | FulReturnReceiptLetter |
-
-### Identifying a letter code
-
-To get the letter code in Alma, navigate to Configuration > General > Letters Configuration. Then find the letter and click on its title to open the edit screen. Now click on the Letter Examples button near the top of the modal window. If the list only includes "DefaultLetter.xml", then click the Add from system letters button and pick from any option you see. The name of the example in the list (other than DefaultLetter.xml) is the Alma system code for the letter.
 
 ### Ex Libris Documentation
 
