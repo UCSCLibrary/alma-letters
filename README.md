@@ -37,13 +37,20 @@ Available regions: `na`, `eu`, `ap`, `aps`, `ca`, `cn`
 
 **Export letters from Alma:**
 ```bash
-alma-letters
+alma-letters pull --env sandbox
+alma-letters pull --env production
 ```
 
-**Push changes to Alma:**
+**Push all changes to Alma:**
 ```bash
 alma-letters push --env sandbox      # Test in sandbox first
 alma-letters push --env production   # Requires confirmation
+```
+
+**Push single templates to Alma:**
+```bash
+alma-letters push --env ENV --letter CODE 		# With any valid letter code
+alma-letters push --env ENV --component CODE 	# With and valid component code
 ```
 
 **View available letters:**
