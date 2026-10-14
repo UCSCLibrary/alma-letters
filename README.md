@@ -35,22 +35,24 @@ Available regions: `na`, `eu`, `ap`, `aps`, `ca`, `cn`
 
 ### Commands
 
-**Export letters from Alma:**
+**Download letter templates from Alma:**
 ```bash
 alma-letters pull --env sandbox
 alma-letters pull --env production
 ```
 
-**Push all changes to Alma:**
+**Upload all templates to Alma:**
 ```bash
 alma-letters push --env sandbox      # Test in sandbox first
 alma-letters push --env production   # Requires confirmation
 ```
 
-**Push single templates to Alma:**
+**Upload a single template to Alma:**
 ```bash
 alma-letters push --env ENV --letter CODE 		# With any valid letter code
 alma-letters push --env ENV --component CODE 	# With and valid component code
+
+# Example: alma-letters push --env production --letter SavedSearchesLetter
 ```
 
 **View available letters:**
