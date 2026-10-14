@@ -24,11 +24,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 		<xsl:call-template name="generalStyle" />
 		</head>
 
-			<body>
+		<body>
 			<h1>
-				<strong>@@requested_for@@ : <br>
-							<xsl:value-of select="notification_data/user_for_printing/name"/></br>
-				</strong>
+			<strong>@@requested_for@@ : <br>
+			<xsl:value-of select="notification_data/user_for_printing/last_name"/>, <xsl:value-of select="notification_data/user_for_printing/first_name"/></br>
+			</strong>
 			</h1>
 
 			<div class="messageArea">
@@ -58,12 +58,12 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 							</tr>
 						</xsl:if>
 
-						<xsl:if test="notification_data/user_for_printing/name">
+						<xsl:if test="notification_data/user_for_printing/first_name">
 
 						<tr>
 							<td>
 						<strong>@@requested_for@@: </strong>
-							<xsl:value-of select="notification_data/user_for_printing/name"/></td>
+							<xsl:value-of select="notification_data/user_for_printing/last_name"/>, <xsl:value-of select="notification_data/user_for_printing/first_name"/></td>
 						</tr>
 
 						</xsl:if>
